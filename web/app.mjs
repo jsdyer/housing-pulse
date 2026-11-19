@@ -20,7 +20,12 @@ function setPeriods(){
   const series=data.series[selected('metric')][selected('kind')],a=series[selected('left')],b=series[selected('right')],freq=data.metrics[selected('metric')].frequency;
   const keys=[...new Set([...Object.keys(a),...Object.keys(b)])].sort();
   const all=datesFor(keys[0],keys.at(-1),freq),old=selected('period');
-  choices('period',[...all].reverse().map(d=>[d,period(d,freq)]),all.includes(old)?old:all.at(-1));render();
+  const hasBoth=t=>unpack(a[t])[0]!=null && unpack(b[t])[0]!=null;
+  const hasEither=t=>unpack(a[t])[0]!=null || unpack(b[t])[0]!=null;
+  const recent=[...all].reverse();
+  const latest=recent.find(hasBoth) || recent.find(hasEither) || recent[0];
+  choices('period',recent.map(d=>[d,period(d,freq)]),all.includes(old)&&hasBoth(old)?old:latest);
+  render();
 }
 function render(){
   const metric=selected('metric'),kind=selected('kind'),a=selected('left'),b=selected('right'),when=selected('period'),info=data.metrics[metric],series=data.series[metric][kind];
