@@ -1,115 +1,23 @@
-# CoolCode browser tool template
+# Housing Pulse
 
-A starting point for independent tools at `coolcode.ca/<repo>/`: a working local-text
-example, responsive UI, Python standard-library build, Node tests, PR checks and Pages
-publication. No npm install is needed.
-
-## Using the example
+[Open Housing Pulse](https://coolcode.ca/housing-pulse/)
 
 <!-- coolcode:guide -->
-The first occurrence of each trimmed line keeps its place. Compare the output with the original text before copying the result.
+Compare Halifax and Vancouver for a two-bedroom apartment in the second quarter of 2026. Average asking rents were $2,400 and $3,030, while average paid rents were $1,770 and $2,470. Switch to rental housing starts to explore a different source and monthly reporting period.
 <!-- /coolcode:guide -->
 
-For a real tool, replace this paragraph with one or two plain-text sentences
-about an example, a limit or how to interpret the results. Keep the source,
-coverage, refresh behaviour and a worked example in this README as appropriate.
-When updating a tool, revise any details its behaviour has changed and keep the
-homepage's shorter data-source sentence in `tool.json` accurate.
-The hub imports the marked note into the catalogue README.
+Choose the measure first. The other selectors follow the source’s coverage. Compare monthly starts, completions, units under construction, starts by intended market, absorptions and unabsorbed inventory. Annual rental vacancy and quarterly asking and paid rent estimates have their own reporting calendars. The browser lets you change dwelling type, the pair of markets and the end of the comparison window, inspect a chart, open exact values and follow the underlying table.
 
-## One-time template setup
+Construction and vacancy use Canada Mortgage and Housing Corporation surveys. Table 34-10-0143 includes national and provincial estimates and selected metropolitan areas. Its provincial series cover centres of 10,000 people or more. Table 34-10-0148 covers additional cities including Halifax. Use its intended-market filter to compare rental starts. Vacancy includes privately initiated row and apartment structures of three units or more. Inventory and under-construction counts represent stocks, while starts and completions count activity during the selected month. Comparison gaps are raw units or percentage points. The app preserves missing values, source geography labels, and published quality flags.
 
-Enable **Settings → General → Template repository** here. This repository does not
-need Pages enabled: its workflow builds/tests but intentionally skips deployment.
-New copies also skip deployment until `scripts/init.py` sets the tool ID to match
-their repository name. This lets you create the repo before configuring Pages.
+Statistics Canada quarterly asking rent describes the advertised market. Paid rent measures a different population of units. Their difference alone cannot predict an individual tenant’s increase. CMAs with the same city name in different surveys may reflect different boundary vintages. Each chart compares markets within a single source series.
 
-## Start a new tool
+Sources: [Starts, completions and construction](https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=3410014301), [Starts by dwelling and market](https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=3410014801), [Absorptions and inventory](https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=3410014901), [Vacancy rates](https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=3410013001), [Quarterly rent statistics](https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=4610009201).
 
-1. Select **Use this template → Create a new repository**, choose owner `jsdyer`,
-   a unique lowercase name such as `my-tool`, and public visibility.
-2. Clone the new repository. Use Python 3.12+ and Node 24+.
-3. Set the identity, using a slug that matches the repository name:
+Adapted from Canada Mortgage and Housing Corporation, Starts and Completions Survey, Market Absorption Survey and Rental Market Survey, data from 2010 onward. This does not constitute an endorsement by Canada Mortgage and Housing Corporation of this product. CMHC information is provided under the [CMHC Licence Agreement for the Use of Data](https://www.statcan.gc.ca/en/reference/agreement_CMHC). The Statistics Canada rent table is provided under the [Statistics Canada Open Licence](https://www.statcan.gc.ca/en/reference/licence).
 
-```sh
-python3 scripts/init.py my-tool --title "My Tool" --description "Describe what this tool does."
-```
+## Refresh and development
 
-Review the category, tags and icon in `tool.json`. `access: "browser"` tells the main
-catalogue that the tool works immediately without installation. `--owner` supports a different
-GitHub owner, but only projects owned by `jsdyer` inherit the CoolCode domain.
+The committed edition builds offline. The scheduled workflow downloads the official archives, validates the edition, runs the browser checks, then commits the refreshed snapshot and deploys it. Source retrieval dates are separate from the observation periods. A failed refresh leaves the last published edition available.
 
-4. Replace the example in `web/` and its tests. Update the privacy explanation,
-   source attribution and README to describe the real tool.
-5. Test and preview:
-
-```sh
-node --test tests/*.test.mjs
-python3 -m unittest discover -s tests -v
-python3 scripts/build.py
-python3 -m http.server 8000 --directory dist
-```
-
-Open `http://localhost:8000/`. The example trims lines, skips blanks and removes exact
-duplicates, preserving first-seen order and capitalization. It makes no API requests
-and does not persist text. Update that explanation if your app behaves differently.
-
-CI also tests the browser flow and mobile layout at a project subpath. Replace the
-sample assertions in `tests/browser_smoke.py` when implementing your own UI. To run
-that check locally (optional for ordinary preview):
-
-```sh
-python3 -m venv .venv
-. .venv/bin/activate
-python3 -m pip install -r tests/browser-requirements.txt
-python3 -m playwright install --with-deps chromium
-python3 tests/browser_smoke.py
-```
-
-Playwright is a test-only dependency; the app and its static build do not use it.
-
-## Publish and register
-
-When the actual tool is ready, in the **new tool repository** set **Settings → Pages → Build and deployment →
-Source → GitHub Actions**. Push to `main`, or manually run **Browser tool · Check and
-publish** after enabling Pages. If the initial deployment ran before Pages was enabled,
-enable it and rerun. PRs only check/build and provide a downloadable preview artifact.
-
-Keep asset paths and module imports relative. Check `https://coolcode.ca/my-tool/`.
-Do not add a CNAME or set `coolcode.ca` as this project's custom domain; the account
-site supplies it. Only successful `main` builds deploy.
-
-After verifying the app, copy the reviewed object from `tool.json` into `data/tools.json`
-in [the main site](https://github.com/jsdyer/jsdyer.github.io). Each tool still builds
-independently. Update the hub record when listing metadata changes; the hub is the
-authority for discovery. Ordinary app updates touch only this repository.
-
-The main site separates **Use in your browser** from **Install yourself**. An app
-that asks for a file is still a browser tool. Standalone Linux packages should start
-in their own repositories with their own build/release workflow, rather than copying
-this browser-only scaffold. Their hub record uses `access: "install"`, links to an
-installation guide, and includes `requirements`.
-
-## Files
-
-| Path | Purpose |
-| --- | --- |
-| `tool.json` | Page metadata and a ready-to-copy catalogue record |
-| `web/` | HTML, responsive CSS, DOM interactions and separate model logic |
-| `scripts/build.py` | Escape metadata and build `web/` into `dist/` |
-| `scripts/init.py` | Set a new project's identity |
-| `tests/` | Application and builder tests |
-| `.github/workflows/pages.yml` | Check PRs and publish successful main builds |
-| `AGENTS.md` | Instructions for future coding work |
-
-Namespace optional storage as `coolcode:<tool-id>:<key>`; CoolCode paths share a
-browser origin. Don't save pasted text/uploads by default. Document external APIs
-and send only the information needed for the selected action. Never embed secrets.
-
-Scheduled refresh is opt-in. Validate source data before deploying, display its date,
-and preserve the last good deployment on failure. Public-repository schedules can
-stop after 60 days without repository activity.
-
-Templates don't propagate future edits automatically. Adopt fixes explicitly and
-consider a versioned reusable workflow once several tools confirm the shared process.
-Choose and add the intended software license before distributing a new project.
+Run `python3 scripts/refresh.py` to retrieve current source files, `node --test tests/*.test.mjs`, `python3 -m unittest discover -s tests` and `python3 scripts/build.py` to check and build. Preview using `python3 -m http.server --directory dist`. The interactive browser check is `python3 tests/browser_smoke.py` after installing the test-only Playwright dependency and its Chromium browser.

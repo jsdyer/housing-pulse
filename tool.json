@@ -1,16 +1,48 @@
 {
-  "id": "coolcode-tool-template",
-  "title": "CoolCode Tool Starter",
-  "description": "A browser-only example that trims lines and removes exact duplicates.",
-  "category": "security",
-  "tags": ["text", "lines", "duplicates"],
-  "icon": "scan-search",
-  "url": "/coolcode-tool-template/",
-  "source": "https://github.com/jsdyer/coolcode-tool-template",
+  "id": "housing-pulse",
+  "title": "Housing Pulse",
+  "description": "Compare housing construction, vacancy and rent in Halifax, Vancouver and other Canadian markets.",
+  "category": "money",
+  "tags": [
+    "housing",
+    "rent",
+    "vacancy",
+    "construction",
+    "CMHC"
+  ],
+  "icon": "building-2",
+  "url": "/housing-pulse/",
+  "source": "https://github.com/jsdyer/housing-pulse",
   "hosting": "project",
   "access": "browser",
   "data_info": {
-    "mode": "local",
-    "detail": "The browser reads the text you paste and compares its lines."
+    "mode": "snapshot",
+    "detail": "CMHC surveys and Statistics Canada rent estimates cover construction, vacancy, completed inventory and quarterly asking and paid rents.",
+    "cadence": "Monthly",
+    "probes": [
+      {
+        "url": "https://coolcode.ca/housing-pulse/data/status.json",
+        "path": [
+          "retrieved"
+        ],
+        "label": "Source retrieved",
+        "count_at": {
+          "path": [
+            "count"
+          ],
+          "unit": "published observations"
+        }
+      },
+      {
+        "url": "https://coolcode.ca/housing-pulse/data/status.json",
+        "path": [
+          "start"
+        ],
+        "end_path": [
+          "end"
+        ],
+        "label": "Coverage"
+      }
+    ]
   }
 }
