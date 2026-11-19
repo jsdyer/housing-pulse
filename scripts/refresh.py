@@ -22,7 +22,7 @@ def main():
         for record in stream:
             if len(record)!=len(head):continue
             r=dict(zip(head,record));date=r['REF_DATE']; g=r['GEO']
-            if date<'2010':continue
+            if date<'2010' and code!='34100143':continue
             metric,kind=definition(code,r); u={'Units':'units','Rate':'%','Dollars':'CAD/month'}[r['UOM']]
             info=metrics.setdefault(metric,{'table':code,'frequency':frequency,'unit':u,'note':note})
             if info['table']!=code or info['unit']!=u:raise ValueError('Unexpected unit or table')
