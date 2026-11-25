@@ -1,0 +1,17 @@
+{
+  "geographies": [
+    "Canada",
+    "Newfoundland and Labrador",
+    "Prince Edward Island",
+    "Nova Scotia",
+    "New Brunswick",
+    "Quebec",
+    "Ontario",
+    "Manitoba",
+    "Saskatchewan",
+    "Alberta",
+    "British Columbia"
+  ],
+  "start_year": "2001",
+  "default_geography": "Nova Scotia"
+}

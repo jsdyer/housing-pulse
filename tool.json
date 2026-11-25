@@ -1,7 +1,7 @@
 {
   "id": "housing-pulse",
   "title": "Housing Pulse",
-  "description": "Compare housing construction, vacancy and rent in Halifax, Vancouver and other Canadian markets.",
+  "description": "Compare Canadian rents, earnings and housing construction with matched places and dated series.",
   "category": "money",
   "tags": [
     "housing",
@@ -17,7 +17,7 @@
   "access": "browser",
   "data_info": {
     "mode": "snapshot",
-    "detail": "CMHC surveys and Statistics Canada rent estimates cover construction, vacancy, completed inventory and quarterly asking and paid rents.",
+    "detail": "CMHC housing surveys and Statistics Canada rent CPI, earnings and rent estimates retain exact geography and observation dates.",
     "cadence": "Monthly",
     "probes": [
       {
@@ -42,6 +42,13 @@
           "end"
         ],
         "label": "Coverage"
+      },
+      {
+        "url": "https://coolcode.ca/housing-pulse/data/context.json",
+        "path": [
+          "checked_at"
+        ],
+        "label": "Comparable series checked"
       }
     ]
   }

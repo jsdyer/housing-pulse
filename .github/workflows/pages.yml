@@ -6,6 +6,9 @@ on:
   schedule:
     - cron: '27 8 20 * *'
   workflow_dispatch:
+concurrency:
+  group: housing-pulse-publication
+  cancel-in-progress: false
 permissions:
   contents: read
 jobs:
@@ -28,7 +31,9 @@ jobs:
           node-version: '24'
       - name: Retrieve and check source files
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
-        run: python3 scripts/refresh.py
+        run: |
+          python3 scripts/refresh.py
+          python3 scripts/refresh_context.py
       - name: Test the application
         run: node --test tests/*.test.mjs
       - name: Test the builder

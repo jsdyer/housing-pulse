@@ -4,6 +4,7 @@
 
 <!-- coolcode:guide -->
 Compare Halifax and Vancouver for a two-bedroom apartment in the second quarter of 2026. Average asking rents were $2,400 and $3,030, while average paid rents were $1,770 and $2,470. Switch to rental housing starts to explore a different source and monthly reporting period.
+A separate province-matched panel compares rent CPI, average weekly earnings and all-area housing completions over the same complete calendar years. Use the latest-common-years button for a fully numeric three-way comparison; newer unavailable completions remain gaps.
 <!-- /coolcode:guide -->
 
 Choose the measure first. The other selectors follow the source’s coverage. Compare monthly starts, completions, historical units under construction, starts by intended market, absorptions and unabsorbed inventory. Annual rental vacancy and quarterly asking and paid rent estimates have their own reporting calendars. The browser lets you change dwelling type, the pair of markets and the end of the comparison window, inspect a chart, open exact values and follow the underlying table.
@@ -29,3 +30,11 @@ Public GitHub repositories can have scheduled workflows disabled after 60 days o
 
 This is an interim mitigation, not a scheduling guarantee: GitHub does not document active-workflow renewal as a permanent exemption, and scheduled runs can be delayed or dropped. A scheduler on our own Linux server is the planned independent trigger. The guard does not collect data, create dummy commits, or change source/check timestamps; successful collection and published data freshness still need monitoring.
 <!-- /schedule-reliability -->
+
+## Comparable rent, earnings and completions
+
+The added panel uses Canada and the ten exact provinces. Rent CPI is table 18-10-0004-01, Rent, not seasonally adjusted (2002=100). Earnings are table 14-10-0223-01, average weekly earnings including overtime, industrial aggregate excluding unclassified businesses, seasonally adjusted. For each, the app takes an unweighted arithmetic mean only when all 12 months have numeric values. These are our annual summaries, not a separate published annual table. Completions are published annual all-area total-unit figures from table 34-10-0126-01, so a city or urban-only survey is never joined to provincial wages. Missing/source-flagged values remain visible in JSON.
+
+The current completion file has numeric values only through 2022. This is also true in its official 2026 release; we do not invent newer values. The default recent five-year comparison shows that gap, and **Use latest years with all three measures** selects a real common historical window. Rent CPI measures price change, not dollar rent; differences between rent and earnings growth are percentage points, not affordability ratios or causal claims. Census geography vintages and the populations of the three surveys differ and are disclosed.
+
+Edit `config/context.json` for exact published geographies and first year, then run `python scripts/refresh_context.py`. The monthly workflow runs it after the original collection. Output `web/data/context.json` has independent successful `checked_at`, source table/vector references and full annual values. Failed downloads/parsing leave the old file and stop publication. Optional `--source-dir /path` reads the exact three official ZIP files for reproducible validation. Run existing tests/build, commit and inspect Pages. No keys or private inputs are required.
