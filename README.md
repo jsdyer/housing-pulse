@@ -5,7 +5,10 @@
 <!-- coolcode:guide -->
 Compare Halifax and Vancouver for a two-bedroom apartment in the second quarter of 2026. Average asking rents were $2,400 and $3,030, while average paid rents were $1,770 and $2,470. Switch to rental housing starts to explore a different source and monthly reporting period.
 A separate province-matched panel compares rent CPI, average weekly earnings and all-area housing completions over the same complete calendar years. Use the latest-common-years button for a fully numeric three-way comparison; newer unavailable completions remain gaps.
+Each metro report compares unit types in one quarter, shows available asking and paid rents side by side, and opens the matching selection in the chart. Provincial reports compare complete rent-index and earnings years and date the latest published completion count separately.
 <!-- /coolcode:guide -->
+
+[Browse metro rent and provincial housing reports](https://coolcode.ca/housing-pulse/records/).
 
 Choose the measure first. The other selectors follow the source’s coverage. Compare monthly starts, completions, historical units under construction, starts by intended market, absorptions and unabsorbed inventory. Annual rental vacancy and quarterly asking and paid rent estimates have their own reporting calendars. The browser lets you change dwelling type, the pair of markets and the end of the comparison window, inspect a chart, open exact values and follow the underlying table.
 

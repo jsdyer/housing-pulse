@@ -48,5 +48,19 @@ async function start(){
   choices('metric',Object.keys(data.metrics),'Average asking rent');el('metric').onchange=setKinds;el('kind').onchange=setPlaces;
   el('left').onchange=el('right').onchange=setPeriods;el('period').onchange=el('window').onchange=render;
   el('content').hidden=false;setKinds();
+  const params = new URLSearchParams(location.search);
+  const metric = params.get('measure'), kind = params.get('unit'), place = params.get('market');
+  if ((metric === 'Average asking rent' || metric === 'Average paid rent') && Object.hasOwn(data.series[metric], kind) && Object.hasOwn(data.series[metric][kind],place)) {
+    el('metric').value=metric;setKinds();
+    el('kind').value=kind;setPlaces();
+    el('left').value=place;
+    const places=data.series[metric][kind];
+    const other = ['All census metropolitan areas','Vancouver, Census metropolitan area (CMA)','Halifax, Census metropolitan area (CMA)',...Object.keys(places)].find(p=>p!==place && Object.hasOwn(places,p));
+    if (other) el('right').value=other;
+    setPeriods();
+    if ([...el('period').options].some(o=>o.value===params.get('quarter'))) {
+      el('period').value=params.get('quarter');render();
+    }
+  }
 }
 start().catch(fail);
